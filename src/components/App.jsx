@@ -1,9 +1,6 @@
-import { useSelector, useDispatch } from 'react-redux';
-import { addContact, deleteContact, fetchContacts } from './redux/operations';
-import { selectContacts } from './redux/selectors';
-import ContactForm from './ContactForm/ContactForm';
-import ContactList from './ContactList/ContactList';
-import { Filter } from './Filter/Filter';
+import { useDispatch } from 'react-redux';
+import { fetchContacts } from './redux/operations';
+
 import { ContainerApp } from './App.styled';
 import { useAuth } from './hooks/useAuth';
 import { React, useEffect, lazy } from 'react';
@@ -23,30 +20,9 @@ const ContactsPage = lazy(() => import('../pages/Contact'));
 
 export default function App() {
   const dispatch = useDispatch();
-  const contacts = useSelector(selectContacts);
+
    const { isRefreshing } = useAuth();
   
-  const onSubmitHandler = (data) => {
-    const isContactExists = contacts.some(
-      (contact) => contact.name === data.name
-    );
-
-    if (isContactExists) {
-      alert(`${data.name} is already in contacts`);
-      return;
-    }
-
-    const contact = {
-      id: data.id,
-      name: data.name,
-      phone: data.phone,
-    };
-    dispatch(addContact(contact));
-  };
-
-   const onDeleteHandler = (id) => {
-    dispatch(deleteContact(id));
-  };
 
     useEffect(() => {
     dispatch(fetchContacts());
@@ -81,9 +57,7 @@ export default function App() {
           </Route>
         </Routes>
       
-      <ContactForm onSubmit={onSubmitHandler} />
-      <Filter />
-      <ContactList onDeleteContact={onDeleteHandler} />
+      
       <GlobalStyle />
     </ContainerApp>
     )
