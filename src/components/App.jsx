@@ -6,13 +6,25 @@ import ContactList from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
 import { ContainerApp } from './App.styled';
 import { fetchContacts } from './redux/operations'
-import { useEffect } from 'react';
+import { useAuth } from './hooks/useAuth';
+import { useEffect, lazy } from 'react';
+import { GlobalStyle } from '../GlobalStyle';
+import { Route, Routes } from 'react-router-dom';
+import { PrivateRoute } from './PrivateRoute';
+import { PublicRoute } from './PublicRoute';
+import { Layout } from './Layout';
 
 import React from 'react';
+
+const HomePage = lazy(() => import('../pages/Home'));
+const RegisterPage = lazy(() => import('../pages/Register'));
+const LoginPage = lazy(() => import('../pages/Login'));
+const ContactsPage = lazy(() => import('../pages/Contact'));
 
 export default function App() {
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
+   const { isRefreshing } = useAuth();
   
   const onSubmitHandler = (data) => {
     const isContactExists = contacts.some(
@@ -41,12 +53,39 @@ export default function App() {
   }, [dispatch]);
 
   return (
-    <ContainerApp>
-      <h1>Phonebook</h1>
+    !isRefreshing && (<ContainerApp>
+      <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<HomePage />} />
+            <Route
+              path="/register"
+              element={
+                <PublicRoute
+                  component={RegisterPage}
+                  redirectTo={'/contacts'}
+                />
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                <PublicRoute component={LoginPage} redirectTo={'/contacts'} />
+              }
+            />
+            <Route
+              path="/contacts"
+              element={
+                <PrivateRoute component={ContactsPage} redirectTo={'/login'} />
+              }
+            />
+          </Route>
+        </Routes>
+      
       <ContactForm onSubmit={onSubmitHandler} />
-      <h2>Contacts</h2>
       <Filter />
-      <ContactList onDeleteContact={onDeleteHandler}/>
+      <ContactList onDeleteContact={onDeleteHandler} />
+      <GlobalStyle />
     </ContainerApp>
+    )
   );
 }
