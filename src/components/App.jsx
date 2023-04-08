@@ -1,20 +1,20 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { addContact, deleteContact } from './redux/operations';
+import { addContact, deleteContact, fetchContacts } from './redux/operations';
 import { selectContacts } from './redux/selectors';
 import ContactForm from './ContactForm/ContactForm';
 import ContactList from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
 import { ContainerApp } from './App.styled';
-import { fetchContacts } from './redux/operations'
 import { useAuth } from './hooks/useAuth';
-import { useEffect, lazy } from 'react';
+import { React, useEffect, lazy } from 'react';
 import { GlobalStyle } from '../GlobalStyle';
+
 import { Route, Routes } from 'react-router-dom';
 import { PrivateRoute } from './PrivateRoute';
 import { PublicRoute } from './PublicRoute';
 import { Layout } from './Layout';
 
-import React from 'react';
+
 
 const HomePage = lazy(() => import('../pages/Home'));
 const RegisterPage = lazy(() => import('../pages/Register'));
