@@ -1,6 +1,3 @@
-import { useDispatch } from 'react-redux';
-import { fetchContacts } from './redux/operations';
-
 import { ContainerApp } from './App.styled';
 import { useAuth } from './hooks/useAuth';
 import { React, lazy } from 'react';
