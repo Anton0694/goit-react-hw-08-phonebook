@@ -45,7 +45,6 @@ export default function Contacts() {
     <>
       <h1>Phonebook</h1>
         
-      
      <ContactForm onSubmit={onSubmitHandler} />
       <Filter />
       <ContactList onDeleteContact={onDeleteHandler} />
