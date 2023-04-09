@@ -9,13 +9,13 @@ import {Form, Input, Label, Button } from "./ContactForm.styled"
 
 export default function ContactForm ()  {
   const [name, setName] = useState('')
-  const [phone, setPhone] = useState('')
+  const [number, setNumber] = useState('')
 
     const dispatch = useDispatch();
  
   const handleSubmit = event => {
        event.preventDefault();
-        dispatch(addContact({ name, phone }));
+        dispatch(addContact({ name, number }));
        reset();
   }  
   
@@ -27,7 +27,7 @@ export default function ContactForm ()  {
         break;
       
       case 'phone':
-        setPhone(value)
+        setNumber(value)
         break;
       default:
         return
@@ -36,7 +36,7 @@ export default function ContactForm ()  {
   
   const  reset = () => {
     setName('')
-    setPhone('')
+    setNumber('')
   }  
   
      
@@ -59,7 +59,7 @@ export default function ContactForm ()  {
                <Input
                  onChange={handleInputChange}
                  type="tel"
-                 value={phone}
+                 value={number}
                  name="phone"
                 
                  pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"

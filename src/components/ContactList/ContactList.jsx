@@ -21,9 +21,9 @@ const filteredContacts = filter
   console.log(filteredContacts)
   return (
     <ContactsList contact={contacts}>
-      {filteredContacts.map(({name, phone, id})=> (
+      {filteredContacts.map(({name, number, id})=> (
         <ContactsListItem key={id}>
-          <ContactListText>{`${name}: ${phone}`}</ContactListText>
+          <ContactListText>{`${name}: ${number}`}</ContactListText>
           <Button
             disabled={id === deletingId}
             type="button"

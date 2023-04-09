@@ -31,7 +31,7 @@ export default function Contacts() {
    const contact = {
       id: data.id,
       name: data.name,
-      phone: data.phone,
+      number: data.number,
     };
     dispatch(addContact(contact));
   };
