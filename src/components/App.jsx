@@ -3,7 +3,7 @@ import { fetchContacts } from './redux/operations';
 
 import { ContainerApp } from './App.styled';
 import { useAuth } from './hooks/useAuth';
-import { React, useEffect, lazy } from 'react';
+import { React, lazy } from 'react';
 import { GlobalStyle } from '../GlobalStyle';
 
 import { Route, Routes } from 'react-router-dom';
@@ -11,22 +11,14 @@ import { PrivateRoute } from './PrivateRoute';
 import { PublicRoute } from './PublicRoute';
 import { Layout } from './Layout';
 
-
-
 const HomePage = lazy(() => import('../pages/Home'));
 const RegisterPage = lazy(() => import('../pages/Register'));
 const LoginPage = lazy(() => import('../pages/Login'));
 const ContactsPage = lazy(() => import('../pages/Contact'));
 
 export default function App() {
-  const dispatch = useDispatch();
-
    const { isRefreshing } = useAuth();
   
-
-    useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
 
   return (
     !isRefreshing && (<ContainerApp>
